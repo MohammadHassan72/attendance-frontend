@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
@@ -11,6 +11,8 @@ function App() {
     <Router>
       <div className="App" style={appContainerStyle}>
         <Routes>
+          {/* Default route that redirects to the login page */}
+          <Route path="/" element={<Navigate to="/login" />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/dashboard" element={<Dashboard />} />
@@ -19,8 +21,8 @@ function App() {
         </Routes>
         <footer style={footerStyle}>
           <p>
-            &copy; {new Date().getFullYear()} Self Attendance Tracker | Made by 
-            <a href="https://www.linkedin.com/in/mohammadhassan72/" target="_blank" rel="noopener noreferrer" style={linkStyle}> Hasxan</a>
+            &copy; {new Date().getFullYear()} Attendance Management System | Made by 
+            <a href="https://www.linkedin.com/in/mohammadhassan72/" target="_blank" rel="noopener noreferrer" style={linkStyle}> Hassan</a>
           </p>
         </footer>
       </div>
