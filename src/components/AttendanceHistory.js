@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
 const AttendanceHistory = () => {
   const [attendance, setAttendance] = useState([]);
   const [message, setMessage] = useState('');
@@ -13,7 +12,8 @@ const AttendanceHistory = () => {
         setMessage('Please log in to view your attendance history.');
         return;
       }
-      const res = await axios.get(`http://localhost:5000/api/attendance/${studentId}`);
+      // Use the environment variable for the GET request
+      const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/attendance/${studentId}`);
       setAttendance(res.data);
     } catch (err) {
       setMessage('Failed to fetch attendance history.');
@@ -27,10 +27,9 @@ const AttendanceHistory = () => {
 
   const handleDelete = async (id) => {
     try {
-      // Corrected URL: Removed the extra `http://`
-      await axios.delete(`http://localhost:5000/api/attendance/${id}`);
+      // Use the environment variable for the DELETE request
+      await axios.delete(`${process.env.REACT_APP_BACKEND_URL}/api/attendance/${id}`);
       setMessage('Attendance record deleted successfully!');
-      // Update the state to remove the deleted item from the list
       setAttendance(attendance.filter(record => record._id !== id));
     } catch (err) {
       setMessage('Failed to delete attendance record.');
