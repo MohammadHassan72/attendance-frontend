@@ -177,10 +177,7 @@ const headerStyle = {
   borderBottom: '2px solid #ced4da',
 };
 
-const navStyle = {
-  display: 'flex',
-  gap: '15px',
-};
+
 
 const linkStyle = {
   textDecoration: 'none',
