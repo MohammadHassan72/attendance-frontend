@@ -12,7 +12,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchTimetable = async () => {
       try {
-        const res = await axios.get('https://attendance-backend-lwpm.onrender.com/api/timetable');
+        const res = await axios.get('${process.env.REACT_APP_BACKEND_URL}/api/timetable');
         setTimetable(res.data);
       } catch (err) {
         setMessage('Failed to load timetable.');

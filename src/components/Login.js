@@ -17,7 +17,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://attendance-backend-lwpm.onrender.com/api/students/login', formData);
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/students/login`, formData);
       setMessage(res.data.message);
       localStorage.setItem('studentId', res.data.studentId);
       setTimeout(() => navigate('/dashboard'), 2000);

@@ -19,7 +19,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('https://attendance-backend-lwpm.onrender.com/api/students/register', formData);
+      const res = await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/students/register`, formData);
       setMessage(res.data.message);
       setTimeout(() => navigate('/login'), 2000);
     } catch (err) {
