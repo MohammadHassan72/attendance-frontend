@@ -32,7 +32,7 @@ const Dashboard = () => {
         try {
           const studentId = localStorage.getItem('studentId');
           if (studentId) {
-            const res = await axios.get(`http://localhost:5000/api/attendance/${studentId}`);
+            const res = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/attendance/${studentId}`);
             const dailyRecords = res.data.filter(record => 
               new Date(record.date).toLocaleDateString('en-GB') === date.toLocaleDateString('en-GB')
             );
@@ -70,16 +70,14 @@ const Dashboard = () => {
         date: new Date(selectedDate),
         subject: classInfo.subject,
         status,
-        className: 'B.E. CSE',
+        className: 'B.E. CSE', 
         time: classInfo.time,
       };
 
       if (classInfo.isTwoHour) {
-        // Send two separate records for a 2-hour class
-        await axios.post('http://localhost:5000/api/attendance/mark', attendanceData);
-        await axios.post('http://localhost:5000/api/attendance/mark', attendanceData);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/attendance/mark-two-hour`, attendanceData);
       } else {
-        await axios.post('http://localhost:5000/api/attendance/mark', attendanceData);
+        await axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/attendance/mark`, attendanceData);
       }
       
       setMessage(`Attendance marked as ${status} for ${classInfo.subject}.`);
@@ -98,7 +96,7 @@ const Dashboard = () => {
     <div style={containerStyle}>
       <header style={headerStyle}>
         <h2 style={{ margin: 0, color: '#343a40' }}>Student Dashboard</h2>
-        <nav>
+        <nav style={navStyle}>
           <Link to="/attendance-history" style={linkStyle}>View History</Link>
           <Link to="/logout" style={{ ...linkStyle, backgroundColor: '#dc3545' }}>Logout</Link>
         </nav>
@@ -177,7 +175,10 @@ const headerStyle = {
   borderBottom: '2px solid #ced4da',
 };
 
-
+const navStyle = {
+  display: 'flex',
+  gap: '15px',
+};
 
 const linkStyle = {
   textDecoration: 'none',
